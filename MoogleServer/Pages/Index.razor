@@ -1,0 +1,88 @@
+﻿@page "/"
+
+<PageTitle>Moogle!</PageTitle>
+
+<h1>🔍 Moogle!</h1>
+@* esta lo tengo q copiar *@
+<input class="p-1 my-4" @bind="query" @bind:event="oninput" placeholder="Introduzca su búsqueda" @onkeyup="Press">
+
+<button type="default" class="btn btn-primary" @onclick="RunQuery">🔍 Buscar</button>
+
+@if (moogle)
+{
+
+    <br />
+    <br />
+
+    <h5>Hola soy un modelo de lenguaje entrenado por Leonardo</h5>
+
+}
+else
+{
+    @if (!string.IsNullOrEmpty(result.Suggestion))
+    {
+        <div class="suggestion">
+            <p>¿Quisite decir <strong><a href="#">@result.Suggestion</a></strong>?</p>
+        </div>
+    }
+
+    <ul class="results">
+        @foreach (var item in result.Items())
+        {
+            <li>
+                <div class="item">
+                    <p class="title">@item.Title</p>
+                    <p>... @item.Snippet ...</p>
+                </div>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private string query = "";
+    private SearchResult result = new SearchResult();
+
+    private bool moogle = false;
+
+    private void RunQuery()
+    {
+        if (query == "moogle") { moogle = true; return; }
+
+        history.Add(query);
+        ind = history.Count;
+        result = Moogle.Query(query);
+
+
+        moogle = false;
+    }
+
+    private void Press(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter")
+        {
+            RunQuery();
+        }
+
+        if (e.Code == "ArrowUp")
+        {
+            if (ind > 0)
+            {
+                ind--;
+                query = history[ind];
+            }
+        }
+        if (e.Code == "ArrowDown")
+        {
+            if (ind < history.Count - 1)
+            {
+                ind++;
+                query = history[ind];
+            }
+        }
+    }
+
+    private List<string> history = new();
+
+    private int ind = -1;
+}
