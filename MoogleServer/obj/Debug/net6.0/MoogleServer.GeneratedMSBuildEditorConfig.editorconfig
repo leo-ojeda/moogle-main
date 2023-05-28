@@ -8,33 +8,33 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MoogleServer
 build_property.RootNamespace = MoogleServer
-build_property.ProjectDir = c:\moogle-main\moogle-main\MoogleServer\
+build_property.ProjectDir = C:\moogle-main\moogle-main\MoogleServer\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\moogle-main\moogle-main\MoogleServer
+build_property.MSBuildProjectDirectory = C:\moogle-main\moogle-main\MoogleServer
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/moogle-main/moogle-main/MoogleServer/App.razor]
+[C:/moogle-main/moogle-main/MoogleServer/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/moogle-main/moogle-main/MoogleServer/_Imports.razor]
+[C:/moogle-main/moogle-main/MoogleServer/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/moogle-main/moogle-main/MoogleServer/Pages/Index.razor]
+[C:/moogle-main/moogle-main/MoogleServer/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-56lu1l4lic
 
-[c:/moogle-main/moogle-main/MoogleServer/Shared/MainLayout.razor]
+[C:/moogle-main/moogle-main/MoogleServer/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-0m1jt7h6x2
 
-[c:/moogle-main/moogle-main/MoogleServer/Pages/_Host.cshtml]
+[C:/moogle-main/moogle-main/MoogleServer/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/moogle-main/moogle-main/MoogleServer/Pages/_Layout.cshtml]
+[C:/moogle-main/moogle-main/MoogleServer/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

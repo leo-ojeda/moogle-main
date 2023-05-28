@@ -85,6 +85,7 @@ public class Document
             magnitude = Math.Sqrt(magnitude);
             documentMagnitudes[document] = magnitude;
         }
+
         return documentMagnitudes;
     }
     ///<summary>crea un vector de consulta que mapea términos a sus pesos en base a su frecuencia y su idf.</summary>
@@ -101,7 +102,10 @@ public class Document
                 double idf = Math.Log10((double)numDocs / invertedIndex[term].Count);
                 double weight = tf * Math.Pow(idf, 0.5);
                 queryVector[term] = weight;
+
             }
+
+
         }
         return queryVector;
     }
@@ -110,28 +114,30 @@ public class Document
     public static double CalculateScore(string document, Dictionary<string, double> queryVector, Dictionary<string, Dictionary<string, int>> invertedIndex, Dictionary<string, double> documentMagnitudes)
     {
         double dotProduct = 0;
-        double totalWords = 0;
 
-        // Calcular el total de número de palabras en el documento y su frecuencia
-        foreach (KeyValuePair<string, int> term in invertedIndex.SelectMany(x => x.Value).Where(x => x.Key == document))
+        // Calcular el producto punto entre el vector del documento y el vector de consulta
+        foreach (var term in queryVector.Keys)
         {
-            totalWords += term.Value;
-
-            // Si la palabra aparece muchas veces, reducir su peso en el cálculo
-            if (term.Value > 5)
+            if (invertedIndex.ContainsKey(term) && invertedIndex[term].ContainsKey(document))
             {
-                dotProduct += 0.1 * (queryVector.ContainsKey(term.Key) ? queryVector[term.Key] : 0) * term.Value;
-            }
-            else
-            {
-                dotProduct += (queryVector.ContainsKey(term.Key) ? queryVector[term.Key] : 0) * term.Value;
+                dotProduct += queryVector[term] * invertedIndex[term][document];
             }
         }
 
+        // Calcular las magnitudes del vector del documento y del vector de consulta
         double documentMagnitude = documentMagnitudes.ContainsKey(document) ? documentMagnitudes[document] : 0;
-        double cosineSimilarity = dotProduct / (documentMagnitude * CalculateQueryMagnitude(queryVector));
-        double score = cosineSimilarity;
-        score -= 2 * (queryVector.Keys.Count - (double)GetMatchedTerms(document, queryVector.Keys.ToList(), invertedIndex));
+        double queryMagnitude = CalculateQueryMagnitude(queryVector);
+
+        // Calcular la similitud del coseno
+        double cosineSimilarity = 0;
+        if (documentMagnitude > 0 && queryMagnitude > 0)
+        {
+            cosineSimilarity = dotProduct / (documentMagnitude * queryMagnitude);
+        }
+
+        // Calcular la puntuación y restar la penalización por términos no coincidentes
+        double score = cosineSimilarity - 2 * (queryVector.Keys.Count - (double)GetMatchedTerms(document, queryVector.Keys.ToList(), invertedIndex));
+
         return score;
     }
 
@@ -148,7 +154,7 @@ public class Document
         string[] queryWords = query.Split(' ');
         foreach (string word in queryWords)
         {
-            int queryIndex = documentContent.IndexOf(word);
+            int queryIndex = documentContent.IndexOf(" " + word + " ");
             if (queryIndex <= 0)
             {
                 continue;
@@ -157,7 +163,7 @@ public class Document
             string snippet = "";
 
             int extralength = 100;
-            while (queryIndex + extralength > documentContent.Length)
+            while (queryIndex + extralength > documentContent.Length || !char.IsWhiteSpace(documentContent[queryIndex + extralength - 1]))
             {
                 extralength--;
             }
@@ -172,7 +178,8 @@ public class Document
         return "";
     }
 
-    
+
+
 
 
 
