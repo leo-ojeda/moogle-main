@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 public static class Moogle
 {
-   public static SearchResult Query(string query)
+  public static SearchResult Query(string query)
 {
     // Eliminar los signos de puntuación y las tildes de la consulta
     query = Regex.Replace(query.ToLower(), @"[^\w\s]", "");
@@ -44,12 +44,36 @@ public static class Moogle
         // Obtener los snippets
         string snippets = Document.GetSnippet(documentContent, query);
 
+        // Si el snippet es vacío, no agregar el documento a los resultados
+        if (string.IsNullOrEmpty(snippets))
+        {
+            continue;
+        }
+
         // Agregar el resultado a la lista
         results.Add(new SearchItem(document.Substring(11, document.Length - 5 - 10), snippets, (float)score));
+
+        // Imprimir el resultado y el puntaje de cada documento
+        Console.WriteLine($"Documento: {document.Substring(11, document.Length - 5 - 10)}");
+        Console.WriteLine($"Puntaje: {score}");
     }
 
-    // Ordenar los resultados por score de mayor a menor y obtener solo los 6 con mayor score
-    var topResults = results.OrderByDescending(x => x.Score).Take(6).ToList();
+    // Ordenar los resultados primero por puntaje de forma descendente, y luego por título de forma ascendente
+    results = results.OrderByDescending(x => x.Score)
+                     .ThenBy(x => x.Title)
+                     .ToList();
+
+    // Obtener solo los 6 resultados con mayor puntaje
+    var topResults = results.Take(6).ToList();
+
+    // Imprimir los resultados finales
+    Console.WriteLine("Resultados finales:");
+    foreach (var result in topResults)
+    {
+        Console.WriteLine($"Documento: {result.Title}");
+        Console.WriteLine($"Puntaje: {result.Score}");
+        Console.WriteLine($"Snippet: {result.Snippet}");
+    }
 
     // Devolver los resultados y la consulta
     return new SearchResult(topResults.ToArray(), query);
