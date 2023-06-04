@@ -54,8 +54,8 @@ public static class Moogle
         results.Add(new SearchItem(document.Substring(11, document.Length - 5 - 10), snippets, (float)score));
 
         // Imprimir el resultado y el puntaje de cada documento
-        Console.WriteLine($"Documento: {document.Substring(11, document.Length - 5 - 10)}");
-        Console.WriteLine($"Puntaje: {score}");
+        //Console.WriteLine($"Documento: {document.Substring(11, document.Length - 5 - 10)}");
+        //Console.WriteLine($"Puntaje: {score}");
     }
 
     // Ordenar los resultados primero por puntaje de forma descendente, y luego por título de forma ascendente
@@ -67,13 +67,13 @@ public static class Moogle
     var topResults = results.Take(6).ToList();
 
     // Imprimir los resultados finales
-    Console.WriteLine("Resultados finales:");
-    foreach (var result in topResults)
-    {
-        Console.WriteLine($"Documento: {result.Title}");
-        Console.WriteLine($"Puntaje: {result.Score}");
-        Console.WriteLine($"Snippet: {result.Snippet}");
-    }
+   // Console.WriteLine("Resultados finales:");
+   // foreach (var result in topResults)
+   // {
+   //     Console.WriteLine($"Documento: {result.Title}");
+   //     Console.WriteLine($"Puntaje: {result.Score}");
+   //     Console.WriteLine($"Snippet: {result.Snippet}");
+   // }
 
     // Devolver los resultados y la consulta
     return new SearchResult(topResults.ToArray(), query);

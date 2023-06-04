@@ -16,7 +16,7 @@ public class Document
     ///<summary>array de términos de un documento eliminando los caracteres de puntuación y las palabras vacías.</summary>
     public static string[] GetTerms(string documentPath, bool document)
     {
-        //documentPath = "../Content";
+       
 
         string text = document ? File.ReadAllText(documentPath) : documentPath;
         string[] words = text.Split(new[] { ' ', '\r', '\n' }).Where(word => !string.IsNullOrEmpty(word)).ToArray();
@@ -24,37 +24,10 @@ public class Document
         return terms;
     }
 
-    ///<summary>la frecuencia de aparición de un término en un documento en el índice invertido.</summary> 
-    public static int GetTermFrequency(string term, string document, Dictionary<string, Dictionary<string, int>> invertedIndex)
-    {
-        if (invertedIndex.ContainsKey(term))
-        {
-            if (invertedIndex[term].ContainsKey(document))
-            {
-                return invertedIndex[term][document];
-            }
-        }
-        return 0;
-    }
-    ///<summary>la cantidad de términos de la consulta que se ajustan a un documento en el índice invertido.</summary>
-    public static Dictionary<string, double> GetMatchedTerms(string document, List<string> queryTerms, Dictionary<string, Dictionary<string, int>> invertedIndex)
-    {
-        Dictionary<string, double> termWeights = new Dictionary<string, double>();
-        double totalTerms = invertedIndex.Count;
-        foreach (string queryTerm in queryTerms)
-        {
-            System.Diagnostics.Trace.WriteLine($"Buscando término: {queryTerm}");
-            int termFrequency = GetTermFrequency(queryTerm, document, invertedIndex);
-            if (termFrequency > 0)
-            {
-                double termWeight = (double)termFrequency / totalTerms;
-                termWeights.Add(queryTerm, termWeight);
-            }
-        }
-        System.Diagnostics.Trace.WriteLine($"Términos coincidentes encontrados: {termWeights.Count}");
-        return termWeights;
-    }
 
+   
+  
+   
 
 
     ///<summary>crea un índice invertido que mapea términos a documentos y sus frecuencias de aparición.</summary>
@@ -155,7 +128,7 @@ public class Document
             {
                 termFreq = 0;
             }
-            Console.WriteLine("Frecuencia:"+termFreq);
+           // Console.WriteLine("Frecuencia:"+termFreq);
 
             double idf = Math.Log(numDocuments / (double)invertedIndex[term].Keys.Count);
             double queryWeight = queryVector[term] * idf;
@@ -180,12 +153,7 @@ public class Document
 
 
 
-    ///<summary>//calcula la magnitud del vector de consulta.</summary>
-    public static double CalculateQueryMagnitude(Dictionary<string, double> queryVector)
-    {
-        double queryMagnitudeSquared = queryVector.Values.Sum(weight => Math.Pow(weight, 2));
-        return Math.Sqrt(queryMagnitudeSquared);
-    }
+    
     public static string GetSnippet(string documentContent, string query)
     {
         string[] queryWords = query.Split(' ');
