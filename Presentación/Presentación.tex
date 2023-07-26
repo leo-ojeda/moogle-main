@@ -1,0 +1,68 @@
+\documentclass[aspectratio = 169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+
+
+\title{\Huge MOOGLE!}
+\author{Leonardo Ojeda Hecheverria C-113}
+\institute{Universidad de La Habana\\Facultad de Matemática y Computación}
+\date{Curso 2023}
+
+
+\begin{document}
+\maketitle
+\begin{center}
+\vfill
+\vspace{2cm}
+{\itshape\LARGE Proyecto de Programación \par}
+\includegraphics[width=14cm, height=4cm]{moogle.png}
+\end{center}
+
+\section{¿Qué es MOOGLE!?}
+\begin{frame}{¿Qué es MOOGLE!?}
+\justifying
+Moogle es un buscador inteligente que nos servirá para buscar contenido dentro de archivos en formato ".txt". Este programa cuenta con funciones capaces de mostrarnos los resultados de nuestra búsqueda en orden de relevancia. Esto significa que MOOGLE! no es un buscador cualquiera, sino uno que clasifica la importancia de los documentos en relación con la frase que queremos encontrar.
+\end{frame}
+\section{¿En qué se basa el funcionamiento de MOOGLE!?}
+\begin{frame}{¿En qué se basa el funcionamiento de MOOGLE!?}
+\justifying
+\begin{center}\textbf{Modelo de Espacio Vectorial}\end{center}
+En el modelo de espacio vectorial, los documentos y las búsquedas se interpretan como vectores de términos. Representando cada término en el vector con un peso determinado dentro de ese documento. La función de similaridad entre el documento y una búsqueda será el coseno del ángulo entre los vectores que los representan.
+
+La funcionalidad de este modelo estriba en la elección correcta de los pesos de cada termino. Para que la recuperación de información sea efectiva, tendremos que elegir unos pesos mayores para las palabras que tengan más relevancia en el documento (Palabras que aparecieran en búsquedas anteriores, por ejemplo).
+\end{frame}
+
+\begin{frame}{Frecuencia y frecuencia inversa}
+\justifying
+Frecuencia del término (tf): Se calcula cuantas veces aparece una palabra en proporción con la longitud del término, normalmente las palabras frecuentes que no son stop-words(preposiciones, conjunciones...) son palabras del mismo tema, ya que en un documento se suele hablar mucho del mismo tema (En este documento, por ejemplo, modelo, recuperación de información, búsqueda, query...).
+
+Frecuencia inversa de documento(tf-idf): También es importante la escasez de un término dentro de un documento. Basándose en esta medición la importancia de un término es inversa a la frecuencia de la ocurrencia. Por ejemplo si buscamos un término que sólo aparece en un documento, aunque sólo aparezca esa vez, ese documento será muy importante para la búsqueda.
+\end{frame}
+
+\begin{frame}{Ventajas}
+\justifying
+Un modelo para el reparto de pesos típico sería tf-idf, donde este es el producto tf x idf. Este modelo es el más típico para el reparto de pesos en el modelo vectorial. Es importante que aparte de este reparto de pesos se realice una normalización del tamaño de los documentos, si no los documentos más largos se verían beneficiados, gracias a que tienen más frecuencia de términos y más términos.
+
+En resumen, como ventajas del modelo de Espacio Vectorial tenemos:
+
+• Obtiene documentos ordenados por un ranking.\newline
+• Los términos de búsqueda se usan con importancia baremada.\newline
+• Se obtienen resultados de coincidencia parcial con la búsqueda.
+\end{frame}
+\section{¿De cuáles opciones dispone?}
+\begin{frame}{¿De cuáles opciones dispone?}
+\justifying
+Moogle posee una barra de texto en la que realizaremos la búsqueda deseada, una vez hecho esto se mostrarán los resultados de esta búsqueda, los cuales serán los títulos de los documentos que coincidan con nuestra solicitud. Además se mostrará un pequeño fragmento del documento que incluye parte de nuestra búsqueda. De haber cometido un error ortográfico, MOOGLE! nos brindará una sugerencia de lo que tal vez quisimos decir y realizará la búsqueda basándose en este criterio.
+\end{frame}
+
+\section{Conclusiones}
+\begin{frame}{Conclusiones}
+\justifying
+MOOGLE! representa una alternativa más eficiente a la simple idea de un buscador de texto ordinario. El hecho de que tenga implementado un modelo de recuperación de información, garantiza una ventaja de tiempo, rendimiento computacional y calidad de resultados. Un ejemplo más de cómo un concepto matemático aparentemente abstracto, puede ser aplicado de manera ingeniosa para solventar dificultades de otras ramas científicas.
+\end{frame}
+\end{document}
